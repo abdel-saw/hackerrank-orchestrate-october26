@@ -160,3 +160,8 @@ Before submitting, confirm that:
 ## Kaggle local experiments
 
 The offline experiment pipeline is documented in [code/KAGGLE.md](code/KAGGLE.md), with a notebook at [code/kaggle/experiment.ipynb](code/kaggle/experiment.ipynb). Start with CPU evidence preparation; attach local model weights to run inference. No paid APIs are used. This is initial experimental infrastructure, not a validated challenge solution.
+
+
+## Google Colab (free tier)
+
+[Open the Colab notebook](https://colab.research.google.com/github/abdel-saw/hackerrank-orchestrate-october26/blob/work/code/colab/experiment.ipynb) and follow the cells in order. It clones this repository, prepares evidence, and downloads public weights for local inference. See [code/COLAB.md](code/COLAB.md) for setup, optional Drive caching and limitations. No paid APIs are required.

@@ -49,3 +49,23 @@ repo_root=/workspace/hackerrank-orchestrate-october26
 worktree=main
 parent_agent=none
 
+## [2026-10-24T20:24:25.362850+00:00] Add Colab free-tier workflow
+
+User Prompt (verbatim, secrets redacted):
+I have some troubles using kaggle  I can't verify my phone number so let's go with Colab
+
+Agent Response Summary:
+Added a Colab notebook that clones the repository, installs prerequisites, prepares evidence, downloads public open weights and runs local inference. Added optional Drive persistence and result downloads. Adjusted precision selection for T4 GPUs. All ten software tests and notebook syntax checks pass; actual Colab GPU inference remains unrun.
+
+Actions:
+* Added code/colab/experiment.ipynb, code/COLAB.md and Colab dependency requirements.
+* Updated README and local-model precision selection.
+* Validated tests, notebook syntax, compilation and diff formatting; publishing to existing work branch.
+
+Context:
+tool=Codex
+model=unavailable: exact model identifier not exposed by this runtime
+branch=work
+repo_root=/workspace/hackerrank-orchestrate-october26
+worktree=main
+parent_agent=none

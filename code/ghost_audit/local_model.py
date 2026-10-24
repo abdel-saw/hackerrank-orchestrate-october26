@@ -20,9 +20,13 @@ class LocalModel:
         if not self.path.is_dir():
             raise ValueError('Attach local model weights and supply their directory')
         self.tokenizer = AutoTokenizer.from_pretrained(str(self.path), local_files_only=True, trust_remote_code=False)
-        kwargs = dict(local_files_only=True, trust_remote_code=False, device_map='auto', torch_dtype='auto')
+        # Free-tier T4 GPUs do not have native BF16 support.
+        dtype = (torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16) if torch.cuda.is_available() else torch.float32
+        kwargs = dict(local_files_only=True, trust_remote_code=False, device_map='auto', torch_dtype=dtype)
         if quantize:
-            kwargs['quantization_config'] = BitsAndBytesConfig(load_in_4bit=True)
+            if not torch.cuda.is_available():
+                raise ValueError('4-bit experiment requires a compatible CUDA GPU')
+            kwargs['quantization_config'] = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=dtype)
         self.model = AutoModelForCausalLM.from_pretrained(str(self.path), **kwargs)
         self.model.eval()
         self.cache = Path(cache); self.cache.mkdir(parents=True,exist_ok=True)
